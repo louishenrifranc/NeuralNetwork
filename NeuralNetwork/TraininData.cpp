@@ -1,7 +1,7 @@
 #include "stdafx.h"
 #include "TraininData.h"
 
-void TrainingData::getTopology(vector<unsigned> &topology)
+void TrainingData::getTopology(vector<int> &topology)
 {
 	string line;
 	string label;

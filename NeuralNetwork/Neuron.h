@@ -30,7 +30,7 @@ private:
 	const double alpha = 0.5; // [0.0 .. n] multiplier of the gradient change
 
 	static double Sigmoid(const double&);
-	static double inverseSigmoid(const double&);
+	static double deriveeSigmoid(const double&);
 
 	static double randomWeight();
 	double output_val;

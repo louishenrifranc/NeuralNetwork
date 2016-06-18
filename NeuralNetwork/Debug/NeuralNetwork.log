@@ -1,9 +1,6 @@
-﻿  Connection.cpp
-  Generating Code...
-  Compiling...
-  Neuron.cpp
+﻿  Neuron.cpp
 c:\users\lh\rmi\documents\visual studio 2015\projects\neuralnetwork\neuralnetwork\neuron.cpp(33): warning C4018: '<': signed/unsigned mismatch
-c:\users\lh\rmi\documents\visual studio 2015\projects\neuralnetwork\neuralnetwork\neuron.cpp(60): warning C4018: '<': signed/unsigned mismatch
+c:\users\lh\rmi\documents\visual studio 2015\projects\neuralnetwork\neuralnetwork\neuron.cpp(62): warning C4018: '<': signed/unsigned mismatch
   Net.cpp
 c:\users\lh\rmi\documents\visual studio 2015\projects\neuralnetwork\neuralnetwork\net.cpp(16): warning C4018: '<=': signed/unsigned mismatch
 c:\users\lh\rmi\documents\visual studio 2015\projects\neuralnetwork\neuralnetwork\net.cpp(50): warning C4018: '<': signed/unsigned mismatch

@@ -30,7 +30,7 @@ void Neuron::feedForward(std::shared_ptr<Layer>& previous_layer) {
 
 	double sum = 0.0;
 
-	for (int i(0); i < previous_layer->size(); i++) 
+	for (int i(0); i < previous_layer->size(); ++i) 
 		sum += previous_layer->at(i).getOutputVal() 
 				 * previous_layer->at(i).weights[my_index].weigth;
 	
@@ -40,18 +40,20 @@ void Neuron::feedForward(std::shared_ptr<Layer>& previous_layer) {
 
 double Neuron::Sigmoid(const double& ff)
 {
-	return 1 / (1.0 + std::exp(ff));
+	// return 1 / (1.0 + std::exp(ff));
+	return std::tanh(ff);
 }
 
 
-double Neuron::inverseSigmoid(const double& ff) {
-	return Sigmoid(ff)*(1 - Sigmoid(ff));
+double Neuron::deriveeSigmoid(const double& ff) {
+	// return Sigmoid(ff)*(1 - Sigmoid(ff));
+	return 1.0 - ff * ff;
 }
 
 
 void Neuron::calcOutputGradient(const double& supposed_value) {
 	double theta = supposed_value - output_val;
-	m_gradient = theta * Neuron::inverseSigmoid(output_val);
+	m_gradient = theta * Neuron::deriveeSigmoid(output_val);
 }
 
 void Neuron::calcHiddenGradient(const Layer& next_layer) {
@@ -59,10 +61,10 @@ void Neuron::calcHiddenGradient(const Layer& next_layer) {
 	double gradient(0.0);
 	for (int i(0); i < weights.size(); i++)
 	{
-		gradient += weights[i].weigth*next_layer.at(i).m_gradient;
+		gradient += weights[i].weigth * next_layer.at(i).m_gradient;
 	}
 
-	gradient*= Neuron::inverseSigmoid(output_val);
+	gradient*= Neuron::deriveeSigmoid(output_val);
 	
 	m_gradient = gradient;
 }

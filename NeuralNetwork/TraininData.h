@@ -11,7 +11,7 @@ class TrainingData
 public:
 	TrainingData(const std::string filename);
 	bool isEof(void) { return m_trainingDataFile.eof(); }
-	void getTopology(std::vector<unsigned> &topology);
+	void getTopology(std::vector<int> &topology);
 
 	// Returns the number of input values read from the file:
 	unsigned getNextInputs(std::vector<double> &inputVals);

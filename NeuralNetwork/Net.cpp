@@ -28,7 +28,7 @@ Net::Net(const std::vector<int>& topology) {
 
 void Net::feedForward(const std::vector<double>& inputsVals)
 {
-	assert(inputsVals.size() == layers[0].size());
+	assert(inputsVals.size() == layers[0].size()-1);
 
 	// Feed the first layers with input values
 	for (size_t i = 0; i < inputsVals.size(); ++i)
@@ -46,10 +46,10 @@ void Net::feedForward(const std::vector<double>& inputsVals)
 // BackPropagate 
 void Net::backProp(const std::vector<double>& output) {
 	
-	smc = 0;
+	smc = 0.0;
 	for (int i(0); i < output.size() ; ++i)
 	{
-		double theta = output[i] - layers[layers.size() - 1][i].getOutputVal();
+		double theta = output[i] - layers.back()[i].getOutputVal();
 		smc += theta*theta;
 	}
 
@@ -60,7 +60,7 @@ void Net::backProp(const std::vector<double>& output) {
 	// Gradient of output layer
 	for (int i(0); i < output.size() ; ++i)
 	{
-		layers[layers.size() - 1][i].calcOutputGradient(output[i]);
+		layers.back()[i].calcOutputGradient(output[i]);
 	}
 
 	// Calculate intemediate gradient
@@ -69,7 +69,7 @@ void Net::backProp(const std::vector<double>& output) {
 		Layer& currentLayer = layers[i];
 		Layer& nextLayer = layers[i + 1];
 
-		for (int n(0); n < currentLayer.size() - 1; ++n) {
+		for (int n(0); n < currentLayer.size() ; ++n) {
 			currentLayer[n].calcHiddenGradient(nextLayer);
 		}
 	}
