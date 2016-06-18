@@ -76,7 +76,8 @@ void Neuron::updateInputWeight(Layer& prevLayer)
 		Neuron& neuron = prevLayer[n];
 
 		double oldDeltaWeight = neuron.weights[my_index].gradient_weight;
-
+		
+		// It's the formula
 		double newDeltaWeight =
 			eta
 			* neuron.getOutputVal()

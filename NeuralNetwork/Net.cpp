@@ -7,13 +7,20 @@ Net::Net(const std::vector<int>& topology) {
 	// Create 'topology.size' layers
 	size_t numLayers = topology.size();
 	
+	// For all news layers
 	for (size_t layerNum = 0; layerNum < numLayers; ++layerNum) {
+		
+		// Add a new layer
 		layers.push_back(Layer());
+		
+		// Get the size of the next layer, used to create neurons that have numOuputs Connections
 		size_t numOutputs = layerNum == topology.size() - 1 ? 0 : topology[layerNum + 1];
+
 
 		// We have a new layer, now fill it with neurons, and
 		// add a bias neuron in each layer.
 		for (size_t neuronNum = 0; neuronNum <= topology[layerNum]; ++neuronNum) {
+			// Add Neuronof neuroNums size
 			layers.back().push_back(Neuron(numOutputs, neuronNum));
 		}
 

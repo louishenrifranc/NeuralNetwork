@@ -4,25 +4,35 @@
 #include <memory>
 #include "Neuron.h"
 
+
+// A Neural Network
 class Net {
 public:
-	// Default Constructor
+
+	//! Default Constructor
+	//! @param vector<int> : topology of the network
 	Net(const std::vector<int>&);
 
-	// feedforward
-	void feedForward(const std::vector<double>& inputVals);
+	//! feedforward the 
+	//! @param vector<double> inputsVals
+	void feedForward(const std::vector<double>&);
 
-	// backpropagate
+	// backpropagate the 
+	// @param output values
 	void backProp(const std::vector<double>&);
 
-	void getResults(std::vector<double>& results) const;
+	// get the outputs results int the
+	// @param vector<double>
+	void getResults(std::vector<double>&) const;
 private:
+
 	using Layer = std::vector<Neuron>;
 
 	// All Layers
 	std::vector<Layer> layers;
 
-	// somme des moindres carrés
+	// Squared Mean Error
+	// Used in the last layer
 	double smc;
 
 };
