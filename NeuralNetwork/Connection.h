@@ -2,10 +2,10 @@
 class Connection
 {
 public:
-	Connection() : weigth(0), gradient_weight(0) {};
+	Connection() : weigth(0), accumulator(0) {};
 
 	double weigth;
-	double gradient_weight ;
+	double accumulator;
 
 };
 

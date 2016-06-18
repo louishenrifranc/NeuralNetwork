@@ -40,7 +40,7 @@ void Neuron::feedForward(std::shared_ptr<Layer>& previous_layer) {
 
 double Neuron::Sigmoid(const double& ff)
 {
-	// return 1 / (1.0 + std::exp(ff));
+	// return 1 / (1.0 + (double)std::exp(-ff));
 	return std::tanh(ff);
 }
 
@@ -59,11 +59,14 @@ void Neuron::calcOutputGradient(const double& supposed_value) {
 void Neuron::calcHiddenGradient(const Layer& next_layer) {
 	
 	double gradient(0.0);
+	// for all the neuron in the next layer
 	for (int i(0); i < weights.size(); i++)
 	{
+		// Multiply the weight that link to this next neuron by its gradient
 		gradient += weights[i].weigth * next_layer.at(i).m_gradient;
 	}
 
+	// Multiply by the sigmoid
 	gradient*= Neuron::deriveeSigmoid(output_val);
 	
 	m_gradient = gradient;
@@ -71,11 +74,13 @@ void Neuron::calcHiddenGradient(const Layer& next_layer) {
 
 void Neuron::updateInputWeight(Layer& prevLayer)
 {
+	// for all neuron in the previous layer
 	for (size_t n = 0; n < prevLayer.size(); ++n)
 	{
 		Neuron& neuron = prevLayer[n];
 
-		double oldDeltaWeight = neuron.weights[my_index].gradient_weight;
+		// Get the accumulator that connect neuron with this
+		double oldDeltaWeight = neuron.weights[my_index].accumulator;
 		
 		// It's the formula
 		double newDeltaWeight =
@@ -85,7 +90,9 @@ void Neuron::updateInputWeight(Layer& prevLayer)
 			+ alpha
 			* oldDeltaWeight;
 		
-		neuron.weights[my_index].gradient_weight = newDeltaWeight;
+		// Update the accumulator
+		neuron.weights[my_index].accumulator = newDeltaWeight;
+		// Update the weight
 		neuron.weights[my_index].weigth += newDeltaWeight;
 	}
 }
