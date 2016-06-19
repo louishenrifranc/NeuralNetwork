@@ -1,68 +1,40 @@
-#include "Net.h"
-#include "TraininData.h"
-#include <fstream>
-#include <iomanip>
 #include <iostream>
+#include <armadillo>
+
 using namespace std;
-
-void createXORinput() {
-	ofstream out("test.out");
-	out << "topology: 2 4 1" << endl;
-	for (int i(0); i < 10000; ++i)
-	{
-		double  a = (rand() & 1 ? 1.0 : 0.0);
-		double b = (rand() & 1 ? 1.0 : 0.0);
-		out << "in: " << (a == 1 ? "1.0" : "0.0") << " " << (b == 1 ? "1.0" : "0.0") << endl;
-		if ((int)(a) ^ (int)(b))
-			out << "out: " << "1.0" << endl;
-		else
-			out << "out: " << "0.0" << endl;
-
-	}
-	out.close();
-}
-
+using namespace arma;
+/*
 int main()
 {
-	TrainingData trainData("test.out");
+	mat A = randu<mat>(4, 5);
+	mat B = randu<mat>(4, 5);
+	
+	mat C = ones<mat>(4,5);
 
-	// e.g., { 3, 2, 1 }
-	vector<int> topology;
-	trainData.getTopology(topology);
 
-	Net myNet(topology);
+	cout << A << endl;
+	cout << A*B.t() << endl;
+	cout << A.row(1) << endl;
+	cout << A.col(1) << endl;
+	cout << A(1,0) << endl;
 
-	vector<double> inputVals, targetVals, resultVals;
-	int trainingPass = 0;
+	// Add 1 everywhere
+	A++;
+	cout << A << endl;
+	// Element wise multiplication
+	cout << A % B << endl;
 
-	while (!trainData.isEof()) {
-		++trainingPass;
-		cout << endl << "Pass " << trainingPass;
+	A = randn(2, 3);
+	cout << A << endl;
 
-		// Get new input data and feed it forward:
-		if (trainData.getNextInputs(inputVals) != topology[0]) {
-			break;
-		}
-		cout << ": Inputs:" <<  inputVals[0] << " " << inputVals[1] << endl;
-		myNet.feedForward(inputVals);
-
-		// Collect the net's actual output results:
-		myNet.getResults(resultVals);
-		cout << "Outputs:" <<  resultVals[0] << " "  << endl;
-
-		// Train the net what the outputs should have been:
-		trainData.getTargetOutputs(targetVals);
-		cout << "Targets:" <<  targetVals[0] << endl;
-		assert(targetVals.size() == topology.back());
-
-		myNet.backProp(targetVals);
-
-		// Report how well the training is working, average over recent samples:
-		//cout << "Net recent average error: "
-			//<< myNet.getRecentAverageError() << endl;
-	}
-
-	cout << endl << "Done" << endl;
 	system("pause");
 	return 0;
 }
+
+
+ones	 	generate object filled with ones
+randi	 	generate object with random integer values in specified interval
+randu / randn	 	generate object with random values (uniform and normal distributions)
+
+A.transform( [](double val) { return (val + 123.0); } );
+*/

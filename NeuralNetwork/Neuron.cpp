@@ -1,7 +1,6 @@
 #include "stdafx.h"
 #include "Neuron.h"
 
-
 Neuron::Neuron(const size_t& size_next_layer, const size_t& my_index) :
 	my_index(my_index)
 {
